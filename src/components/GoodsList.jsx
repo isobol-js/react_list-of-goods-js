@@ -9,3 +9,5 @@ export function GoodsList({ goods }) {
     </ul>
   );
 }
+
+//
