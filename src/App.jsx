@@ -20,27 +20,34 @@ export const App = () => {
   const [sortType, setSortType] = useState(null);
   const [isReversed, setIsReversed] = useState(false);
 
-  const handleAction = (action) => {
+  const handleAction = action => {
     let newGoods;
 
     switch (action) {
       case 'sortAlphabet':
         newGoods = [...goodsFromServer].sort((a, b) => a.localeCompare(b));
+        if (isReversed) {
+          newGoods.reverse();
+        }
+
         setSortType('alphabet');
-        setIsReversed(false);
         break;
 
       case 'sortLength':
         newGoods = [...goodsFromServer].sort((a, b) => a.length - b.length);
+        if (isReversed) {
+          newGoods.reverse();
+        }
+
         setSortType('length');
-        setIsReversed(false);
         break;
 
       case 'reverse':
         newGoods = [...goods].reverse();
         setIsReversed(!isReversed);
+        setGoods(newGoods);
 
-        return setGoods(newGoods);
+        return;
 
       case 'reset':
         newGoods = [...goodsFromServer];
@@ -49,13 +56,18 @@ export const App = () => {
         break;
 
       default:
+
+        return undefined;
     }
 
     setGoods(newGoods);
+
+    return undefined;
   };
 
-  const isModified = goods.length !== goodsFromServer.length ||
-  goods.some((item, index) => item !== goodsFromServer[index]);
+  const isModified =
+    goods.length !== goodsFromServer.length ||
+    goods.some((item, index) => item !== goodsFromServer[index]);
 
   return (
     <div className="section content">
