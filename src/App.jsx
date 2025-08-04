@@ -45,9 +45,7 @@ export const App = () => {
       case 'reverse':
         newGoods = [...goods].reverse();
         setIsReversed(!isReversed);
-        setGoods(newGoods);
-
-        return;
+        break;
 
       case 'reset':
         newGoods = [...goodsFromServer];
@@ -56,13 +54,11 @@ export const App = () => {
         break;
 
       default:
-
-        return undefined;
+        newGoods = goods;
+        break;
     }
 
     setGoods(newGoods);
-
-    return undefined;
   };
 
   const isModified =
